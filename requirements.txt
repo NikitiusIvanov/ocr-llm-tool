@@ -1,0 +1,8 @@
+dash==2.18.2
+dash-bootstrap-components==1.6.0
+dash-uploader==0.6.1
+PyMuPDF==1.25.1
+pillow==11.0.0
+openai==1.57.4
+anthropic==0.40.0
+gunicorn==23.0.0
