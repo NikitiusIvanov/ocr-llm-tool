@@ -1,21 +1,21 @@
-# Set the working directory in the container
+FROM python:3.11-slim
+
+# Set working directory
 WORKDIR /app
 
-# Copy the requirements file into the container
-COPY requirements.txt .
-
-# Install the Python dependencies
+# Install dependencies
+COPY requirements.txt /app/requirements.txt
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code into the container
-COPY . .
+# Copy the application code
+COPY . /app
 
-# Expose the port that the Dash app will run on
-ENV PORT 8080
-EXPOSE $PORT
+# Expose the port used by the web server
+EXPOSE 8080
 
 # Set environment variables (if needed)
 ENV PYTHONUNBUFFERED=1
 
 # Command to run the application using gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "main:server"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "main:server"]
