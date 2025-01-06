@@ -20,6 +20,8 @@ anthropic_api_key = os.getenv('anthropic_api_key')
 claude_client = Anthropic(api_key=anthropic_api_key)
 open_ai_client = OpenAI(api_key=open_ai_api_key)
 
+port = int(os.environ.get("PORT", 8050))
+
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 du.configure_upload(app, "uploads")
@@ -613,4 +615,4 @@ def perform_extracting_content(model, prompt, image):
     return result
 
 if __name__ == '__main__':
-    app.run_server(debug=True, host='0.0.0.0', port=8050)
+    app.run_server(debug=True, host='0.0.0.0', port=port)
