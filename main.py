@@ -588,8 +588,9 @@ def perform_extracting_content(model, prompt, image):
         )
         result = response.choices[0].message.content
     elif model == 'claude-3-5-sonnet-20241022':
+        media_type = "image/png"
         message = claude_client.messages.create(
-            model="claude-3-5-sonnet-20241022",
+            model=model,
             max_tokens=1024,
             messages=[
                 {
@@ -599,7 +600,7 @@ def perform_extracting_content(model, prompt, image):
                             "type": "image",
                             "source": {
                                 "type": "base64",
-                                "media_type": "png",
+                                "media_type": media_type,
                                 "data": image,
                             },
                         },
@@ -609,10 +610,11 @@ def perform_extracting_content(model, prompt, image):
                         }
                     ],
                 }
-            ]
+            ],
         )
         result = message.to_dict()['content'][0]['text']
     return result
+
 
 if __name__ == '__main__':
     app.run_server(debug=True, host='0.0.0.0', port=port)
